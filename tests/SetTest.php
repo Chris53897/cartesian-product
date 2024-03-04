@@ -11,15 +11,14 @@
 
 namespace Nerd\CartesianProduct;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @author Marco Garofalo <marcogarofalo.personal@gmail.com>
  */
-class SetTest extends \PHPUnit_Framework_TestCase
+class SetTest extends TestCase
 {
-    /**
-     * @var array
-     */
-    private static $values = array('a', 'b');
+    private static array $values = array('a', 'b');
 
     public function testShouldComputeTheCurrentElementForBothArrayAndNonArrayValues()
     {

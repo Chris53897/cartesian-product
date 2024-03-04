@@ -11,32 +11,28 @@
 
 namespace Nerd\CartesianProduct;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @author Marco Garofalo <marcogarofalo.personal@gmail.com>
  */
-class CartesianProductTest extends \PHPUnit_Framework_TestCase
+class CartesianProductTest extends TestCase
 {
-    /**
-     * @var CartesianProduct
-     */
-    private $cartesianProduct;
+    private CartesianProduct $cartesianProduct;
 
-    /**
-     * @var array
-     */
-    private static $sets = array(
-        array('a', 'b'),
-        array('c', 'd')
-    );
+    private static array $sets = [
+        ['a', 'b'],
+        ['c', 'd']
+    ];
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->cartesianProduct = new CartesianProduct(self::$sets);
     }
 
     public function testShouldBeAbleToHandleASingleSet()
     {
-        $singleSet = array(array('a', 'b'));
+        $singleSet = [['a', 'b']];
         $cartesianProduct = new CartesianProduct($singleSet);
 
         $this->assertTrue(is_array($cartesianProduct->current()));
@@ -46,15 +42,15 @@ class CartesianProductTest extends \PHPUnit_Framework_TestCase
 
     public function testShouldComputeTheCartesianProductIterativelyAndAsWholeCorrectly()
     {
-        $expectedProduct = array(
-            array('a', 'c'),
-            array('a', 'd'),
-            array('b', 'c'),
-            array('b', 'd'),
-        );
+        $expectedProduct = [
+            ['a', 'c'],
+            ['a', 'd'],
+            ['b', 'c'],
+            ['b', 'd'],
+        ];
 
         // using the iterator interface
-        $actualProductIteratively = array();
+        $actualProductIteratively = [];
         foreach ($this->cartesianProduct as $product) {
             $actualProductIteratively[] = $product;
         }

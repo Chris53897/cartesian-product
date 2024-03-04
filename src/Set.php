@@ -16,19 +16,8 @@ namespace Nerd\CartesianProduct;
  */
 class Set extends \IteratorIterator
 {
-    /**
-     * @var \Iterator
-     */
-    private $neighbour;
-
-    /**
-     * @param \Iterator $set
-     * @param \Iterator $neighbour
-     */
-    public function __construct(\Iterator $set, \Iterator $neighbour)
+    public function __construct(\Iterator $set, private \Iterator $neighbour)
     {
-        $this->neighbour = $neighbour;
-
         parent::__construct($set);
         parent::rewind();
     }
@@ -36,12 +25,12 @@ class Set extends \IteratorIterator
     /**
      * {@inheritdoc}
      */
-    public function current()
+    public function current(): mixed
     {
         $neighbourCurrent = $this->neighbour->current();
         $current = parent::current();
 
-        if (!$this->neighbour instanceof Set) {
+        if (!$this->neighbour instanceof self) {
             $neighbourCurrent = array($neighbourCurrent);
         }
 
@@ -53,7 +42,7 @@ class Set extends \IteratorIterator
     /**
      * {@inheritdoc}
      */
-    public function next()
+    public function next(): void
     {
         $this->neighbour->next();
 
@@ -66,7 +55,7 @@ class Set extends \IteratorIterator
     /**
      * {@inheritdoc}
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->neighbour->rewind();
         parent::rewind();
